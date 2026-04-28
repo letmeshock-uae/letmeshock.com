@@ -3,7 +3,13 @@
   --ink: #000;
   --text-size: 13px;
   --gap: 24px;
-  --pad: 40px;
+  --pad: 20px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pad: 40px;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -71,16 +77,11 @@ body {
   gap: 24px;
 }
 
-@media (min-height: 600px) {
-  .content {
-    min-height: calc(100dvh - var(--pad) * 2);
-  }
-}
-
 @media (min-width: 768px) {
   .content {
     width: calc((100% - var(--gap)) / 2);
     max-width: 668px;
+    min-height: calc(100dvh - var(--pad) * 2);
   }
 }
 
