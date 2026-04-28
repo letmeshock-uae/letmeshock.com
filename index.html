@@ -17,7 +17,7 @@
     <source src="/palms.mp4" type="video/mp4" />
   </video>
 
-  <img class="portrait" src="/sergei.jpg" alt="" aria-hidden="true" />
+  <img class="portrait" alt="" aria-hidden="true" style="opacity:0;visibility:hidden" />
 
   <main class="page">
     <!-- ≥768px: two-column layout, text in the left half. <768px: single column, text fills full width. -->
@@ -150,23 +150,33 @@
       /* ── Portrait on hover/touch ── */
       var trigger = document.getElementById('name-trigger');
       var portrait = document.querySelector('.portrait');
+      var imgLoaded = false;
+
+      function loadImg() {
+        if (!imgLoaded) {
+          imgLoaded = true;
+          portrait.src = '/sergei.jpg';
+        }
+      }
+
+      function showPortrait() {
+        loadImg();
+        portrait.classList.add('is-visible');
+      }
+
+      function hidePortrait() {
+        portrait.classList.remove('is-visible');
+      }
+
       if (trigger && portrait) {
-        trigger.addEventListener('mouseenter', function () {
-          portrait.classList.add('is-visible');
-        });
-        trigger.addEventListener('mouseleave', function () {
-          portrait.classList.remove('is-visible');
-        });
+        trigger.addEventListener('mouseenter', showPortrait);
+        trigger.addEventListener('mouseleave', hidePortrait);
         trigger.addEventListener('touchstart', function (e) {
           e.preventDefault();
-          portrait.classList.add('is-visible');
+          showPortrait();
         }, { passive: false });
-        trigger.addEventListener('touchend', function () {
-          portrait.classList.remove('is-visible');
-        });
-        trigger.addEventListener('touchcancel', function () {
-          portrait.classList.remove('is-visible');
-        });
+        trigger.addEventListener('touchend', hidePortrait);
+        trigger.addEventListener('touchcancel', hidePortrait);
       }
     })();
   </script>
