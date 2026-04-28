@@ -63,16 +63,10 @@ body {
   z-index: 2;
   padding: var(--pad);
   padding-top: max(var(--pad), env(safe-area-inset-top));
-  padding-bottom: 60px;
+  padding-bottom: var(--pad);
   min-height: 100dvh;
   max-width: 1440px;
   margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  .page {
-    padding-bottom: var(--pad);
-  }
 }
 
 .content {
@@ -108,19 +102,14 @@ body {
   align-items: center;
   gap: 10px;
   width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: sticky;
+  bottom: var(--pad);
   z-index: 10;
-  padding: var(--pad);
-  padding-bottom: max(var(--pad), env(safe-area-inset-bottom));
 }
 
 @media (min-width: 768px) {
   .links {
     position: static;
-    padding: 0;
   }
 }
 
