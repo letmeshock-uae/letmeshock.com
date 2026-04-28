@@ -12,7 +12,7 @@
 </head>
 <body>
   <canvas class="palms" aria-hidden="true"></canvas>
-  <video id="palms-src" muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" style="position:absolute;width:0;height:0;opacity:0;pointer-events:none">
+  <video id="palms-src" muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" style="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0.01;pointer-events:none;z-index:-1">
     <source src="/palms.mp4" type="video/mp4" />
   </video>
 
@@ -113,18 +113,30 @@
         raf = requestAnimationFrame(draw);
       }
 
-      function onPlay() {
-        if (!revealed) {
+      function reveal() {
+        if (!revealed && !video.paused) {
           revealed = true;
           canvas.classList.add('is-playing');
         }
-        if (!raf) draw();
+        if (!raf && !video.paused) draw();
       }
 
-      video.addEventListener('playing', onPlay);
+      function tryPlay() {
+        var p = video.play();
+        if (p && p.then) p.then(reveal).catch(function () {});
+      }
+
+      video.addEventListener('playing', reveal);
+      video.addEventListener('loadeddata', tryPlay);
+      video.addEventListener('canplay', tryPlay);
+
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden && video.paused) tryPlay();
+      });
+
       window.addEventListener('resize', resize);
       resize();
-      video.play().catch(function () {});
+      tryPlay();
     })();
   </script>
 </body>
