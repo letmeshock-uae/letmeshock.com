@@ -39,6 +39,61 @@
 
   <script>
     (function () {
+      /* ── Dubai sky color stops ── */
+      var stops = [
+        { m:  420, bg: [0x75,0xBB,0xE7], ink: [0,0,0]       },  // 07:00
+        { m:  720, bg: [0xEB,0xED,0xE5], ink: [0,0,0]       },  // 12:00
+        { m:  840, bg: [0x7D,0x1E,0x17], ink: [0,0,0]       },  // 14:00
+        { m: 1020, bg: [0xFF,0x95,0x00], ink: [0,0,0]       },  // 17:00
+        { m: 1170, bg: [0x4F,0x17,0x7D], ink: [255,255,255] },  // 19:30
+        { m: 1260, bg: [0x00,0x21,0x2D], ink: [255,255,255] }   // 21:00
+      ];
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function lerpRgb(a, b, t) {
+        return [
+          Math.round(lerp(a[0], b[0], t)),
+          Math.round(lerp(a[1], b[1], t)),
+          Math.round(lerp(a[2], b[2], t))
+        ];
+      }
+
+      function rgb(c) { return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'; }
+
+      function dubaiMinutes() {
+        var now = new Date();
+        var utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        var dubai = new Date(utc + 4 * 3600000);
+        return dubai.getHours() * 60 + dubai.getMinutes();
+      }
+
+      function getColors(min) {
+        var n = stops.length;
+        for (var i = 0; i < n; i++) {
+          var curr = stops[i];
+          var next = stops[(i + 1) % n];
+          var cm = curr.m;
+          var nm = next.m > cm ? next.m : next.m + 1440;
+          var m = min < cm ? min + 1440 : min;
+          if (m >= cm && m < nm) {
+            var t = (m - cm) / (nm - cm);
+            return { bg: lerpRgb(curr.bg, next.bg, t), ink: lerpRgb(curr.ink, next.ink, t) };
+          }
+        }
+        return { bg: stops[0].bg, ink: stops[0].ink };
+      }
+
+      function applyColors() {
+        var c = getColors(dubaiMinutes());
+        document.documentElement.style.setProperty('--bg', rgb(c.bg));
+        document.documentElement.style.setProperty('--ink', rgb(c.ink));
+      }
+
+      applyColors();
+      setInterval(applyColors, 60000);
+
+      /* ── Canvas video ── */
       var canvas = document.querySelector('.palms');
       var video = document.getElementById('palms-src');
       if (!canvas || !video) return;
@@ -67,10 +122,8 @@
       }
 
       video.addEventListener('playing', onPlay);
-
       window.addEventListener('resize', resize);
       resize();
-
       video.play().catch(function () {});
     })();
   </script>
