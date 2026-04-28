@@ -72,17 +72,23 @@ body {
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
   gap: 24px;
 }
+
+.links { order: -1; }
+.copy { order: 0; }
 
 @media (min-width: 768px) {
   .content {
     width: calc((100% - var(--gap)) / 2);
     max-width: 668px;
     min-height: calc(100dvh - var(--pad) * 2);
+    justify-content: space-between;
   }
+
+  .copy { order: -1; }
+  .links { order: 0; }
 }
 
 .copy {
@@ -102,15 +108,6 @@ body {
   align-items: center;
   gap: 10px;
   width: 100%;
-  position: sticky;
-  bottom: var(--pad);
-  z-index: 10;
-}
-
-@media (min-width: 768px) {
-  .links {
-    position: static;
-  }
 }
 
 .links a {
