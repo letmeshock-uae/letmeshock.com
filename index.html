@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <video class="palms" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-hidden="true">
+  <video class="palms" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true">
     <source src="/palms.mp4" type="video/mp4" />
   </video>
 
@@ -41,15 +41,21 @@
       var v = document.querySelector('.palms');
       if (!v) return;
 
+      v.controls = false;
+      v.removeAttribute('controls');
+
       function reveal() {
         if (!v.paused) v.classList.add('is-playing');
       }
 
+      function tryPlay() {
+        v.play().then(reveal).catch(function () {});
+      }
+
       v.addEventListener('playing', reveal);
+      v.addEventListener('loadeddata', tryPlay);
 
-      v.play().catch(function () {});
-
-      reveal();
+      tryPlay();
     })();
   </script>
 </body>
