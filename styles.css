@@ -57,7 +57,7 @@ body {
   min-height: calc(100vh - var(--pad) * 2);
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 768px) {
   .content {
     width: calc((100% - var(--gap)) / 2);
     max-width: 668px;
