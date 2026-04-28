@@ -94,7 +94,7 @@ body {
 .copy p {
   font-size: var(--text-size);
   line-height: 1.23;
-  color: var(--ink);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .links {
