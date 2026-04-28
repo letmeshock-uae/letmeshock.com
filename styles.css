@@ -39,25 +39,11 @@ body {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
   z-index: 1;
   pointer-events: none;
   mix-blend-mode: multiply;
   opacity: 0;
   transition: opacity 0.8s ease;
-}
-
-.palms::-webkit-media-controls,
-.palms::-webkit-media-controls-panel,
-.palms::-webkit-media-controls-play-button,
-.palms::-webkit-media-controls-start-playback-button,
-.palms::-webkit-media-controls-overlay-play-button {
-  display: none !important;
-  -webkit-appearance: none;
-  opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
 }
 
 .palms.is-playing {

@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <video class="palms" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" aria-hidden="true">
+  <canvas class="palms" aria-hidden="true"></canvas>
+  <video id="palms-src" muted loop playsinline webkit-playsinline disableRemotePlayback preload="auto" style="position:absolute;width:0;height:0;opacity:0;pointer-events:none">
     <source src="/palms.mp4" type="video/mp4" />
   </video>
 
@@ -38,24 +39,39 @@
 
   <script>
     (function () {
-      var v = document.querySelector('.palms');
-      if (!v) return;
+      var canvas = document.querySelector('.palms');
+      var video = document.getElementById('palms-src');
+      if (!canvas || !video) return;
 
-      v.controls = false;
-      v.removeAttribute('controls');
+      var ctx = canvas.getContext('2d');
+      var raf;
+      var revealed = false;
 
-      function reveal() {
-        if (!v.paused) v.classList.add('is-playing');
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
       }
 
-      function tryPlay() {
-        v.play().then(reveal).catch(function () {});
+      function draw() {
+        if (video.paused || video.ended) { raf = null; return; }
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        raf = requestAnimationFrame(draw);
       }
 
-      v.addEventListener('playing', reveal);
-      v.addEventListener('loadeddata', tryPlay);
+      function onPlay() {
+        if (!revealed) {
+          revealed = true;
+          canvas.classList.add('is-playing');
+        }
+        if (!raf) draw();
+      }
 
-      tryPlay();
+      video.addEventListener('playing', onPlay);
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      video.play().catch(function () {});
     })();
   </script>
 </body>
