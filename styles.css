@@ -6,6 +6,12 @@
   --pad: 40px;
 }
 
+@media (min-width: 1440px) {
+  :root {
+    --pad: 80px;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
