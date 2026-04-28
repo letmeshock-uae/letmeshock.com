@@ -18,18 +18,20 @@
   padding: 0;
 }
 
-html, body {
+html {
   height: 100%;
+  background: var(--bg);
 }
 
 body {
+  height: 100%;
   background: var(--bg);
   color: var(--ink);
   font-family: "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-size: var(--text-size);
   font-weight: 400;
   line-height: 1.23;
-  min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
 }
@@ -54,7 +56,9 @@ body {
   position: relative;
   z-index: 2;
   padding: var(--pad);
-  min-height: 100vh;
+  padding-top: max(var(--pad), env(safe-area-inset-top));
+  padding-bottom: max(var(--pad), env(safe-area-inset-bottom));
+  min-height: 100dvh;
   max-width: 1440px;
   margin: 0 auto;
 }
@@ -64,7 +68,13 @@ body {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  min-height: calc(100vh - var(--pad) * 2);
+  gap: 24px;
+}
+
+@media (min-height: 600px) {
+  .content {
+    min-height: calc(100dvh - var(--pad) * 2);
+  }
 }
 
 @media (min-width: 768px) {

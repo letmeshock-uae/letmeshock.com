@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#00212D" />
 <title>Sergei — Design Lead</title>
 <meta name="description" content="Sergei — Dubai-based design lead. Branding, product, and visual strategy." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,10 +85,15 @@
         return { bg: stops[0].bg, ink: stops[0].ink };
       }
 
+      function hex2(n) { return ('0' + n.toString(16)).slice(-2); }
+
       function applyColors() {
         var c = getColors(dubaiMinutes());
-        document.documentElement.style.setProperty('--bg', rgb(c.bg));
+        var bgStr = rgb(c.bg);
+        document.documentElement.style.setProperty('--bg', bgStr);
         document.documentElement.style.setProperty('--ink', rgb(c.ink));
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute('content', '#' + hex2(c.bg[0]) + hex2(c.bg[1]) + hex2(c.bg[2]));
       }
 
       applyColors();
