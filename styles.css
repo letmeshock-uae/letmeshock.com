@@ -1,0 +1,117 @@
+:root {
+  --bg: #d4d1cb;
+  --ink: #000;
+  --text-size: 13px;
+  --gap: 24px;
+  --pad: 40px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--text-size);
+  font-weight: 400;
+  line-height: 1.23;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.palms {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  padding: var(--pad);
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: calc(100vh - var(--pad) * 2);
+}
+
+@media (min-width: 1440px) {
+  .content {
+    width: calc((100% - var(--gap)) / 2);
+    max-width: 668px;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.copy p {
+  font-size: var(--text-size);
+  line-height: 1.23;
+  color: var(--ink);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--text-size);
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.links-left {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.links-left a {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.links-right {
+  flex: 1 1 0;
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .palms {
+    display: none;
+  }
+}
