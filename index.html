@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <video class="palms" src="/palms.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <video class="palms" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-hidden="true">
+    <source src="/palms.mp4" type="video/mp4" />
+  </video>
 
   <main class="page">
     <!-- ≥768px: two-column layout, text in the left half. <768px: single column, text fills full width. -->
@@ -33,5 +35,22 @@
       </footer>
     </section>
   </main>
+
+  <script>
+    (function () {
+      var v = document.querySelector('.palms');
+      if (!v) return;
+
+      function reveal() {
+        if (!v.paused) v.classList.add('is-playing');
+      }
+
+      v.addEventListener('playing', reveal);
+
+      v.play().catch(function () {});
+
+      reveal();
+    })();
+  </script>
 </body>
 </html>

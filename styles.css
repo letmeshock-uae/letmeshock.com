@@ -43,6 +43,11 @@ body {
   z-index: 1;
   pointer-events: none;
   mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.palms.is-playing {
   opacity: 0.85;
 }
 
