@@ -17,13 +17,11 @@
     <source src="/palms.mp4" type="video/mp4" />
   </video>
 
-  <img class="portrait" alt="" aria-hidden="true" style="opacity:0;visibility:hidden" />
-
   <main class="page">
     <!-- ≥768px: two-column layout, text in the left half. <768px: single column, text fills full width. -->
     <section class="content" aria-label="About">
       <div class="copy">
-        <p>Hi, I'm <span class="name" id="name-trigger">Sergei</span>. Dubai-based design lead with 15+ years across branding, product, and visual strategy.</p>
+        <p>Hi, I'm Sergei. Dubai-based design lead with 15+ years across branding, product, and visual strategy.</p>
         <p>Building products, experiences, and visual systems that make complex ideas feel clear, alive, and meaningful. Work sits at the intersection of product, storytelling, brand, and technology: from launching digital products and building design systems to shaping presales.</p>
         <p>Led design for government entities, built brand identity and scalable UI systems from scratch, created expo experiences still referenced across the region, ran campaigns for top global brands at creative agencies. Along the way, designed for acquisition, mentored teams, and learned that good design needs both a clear system and a strong point of view.</p>
         <p>Operating where strategy meets craft: product direction, team leadership, narrative, and deep hands-on work in interface design, visual language, prototyping, motion, and systems. Comfortable building in ambiguity and turning early-stage ideas into something tangible and ready to scale.</p>
@@ -146,38 +144,6 @@
       window.addEventListener('resize', resize);
       resize();
       tryPlay();
-
-      /* ── Portrait on hover/touch ── */
-      var trigger = document.getElementById('name-trigger');
-      var portrait = document.querySelector('.portrait');
-      var imgLoaded = false;
-
-      function loadImg() {
-        if (!imgLoaded) {
-          imgLoaded = true;
-          portrait.src = '/sergei.jpg';
-        }
-      }
-
-      function showPortrait() {
-        loadImg();
-        portrait.classList.add('is-visible');
-      }
-
-      function hidePortrait() {
-        portrait.classList.remove('is-visible');
-      }
-
-      if (trigger && portrait) {
-        trigger.addEventListener('mouseenter', showPortrait);
-        trigger.addEventListener('mouseleave', hidePortrait);
-        trigger.addEventListener('touchstart', function (e) {
-          e.preventDefault();
-          showPortrait();
-        }, { passive: false });
-        trigger.addEventListener('touchend', hidePortrait);
-        trigger.addEventListener('touchcancel', hidePortrait);
-      }
     })();
   </script>
 </body>
